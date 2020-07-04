@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress2
+  labels:
+    app: wordpress2
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: wordpress2
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+     
+      labels:
+        app: wordpress2
+        tier: frontend
+    spec:
+      containers:
+      - image: wordpress:5.4
+        name: wordpress
+        env:
+        - name:  WORDPRESS_DB_HOST
+          value: wordpress-mysql
+        - name: WORDPRESS_DB_USER
+          value: wpuser2
+        - name: WORDPRESS_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name:  mysecret
+              key: WORDPRESS_DB_PASSWORD
+        - name: WORDPRESS_DB_NAME
+          value: wpdb2
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 100m
+          requests:
+            cpu: 100m 
