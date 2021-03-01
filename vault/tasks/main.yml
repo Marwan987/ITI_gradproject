@@ -1,0 +1,6 @@
+---
+# tasks file for vault_secret_management
+- import_tasks: create-secret-engine.yaml
+- import_tasks: create-secret.yaml
+- import_tasks: check-secrets.yaml
+
