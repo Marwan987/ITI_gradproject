@@ -29,8 +29,7 @@ Example Payload.json
 
 Example Playbook
 ----------------
-
-- name: Example on different usages of sonarqube role
+- name: Vault Secret Management
   hosts: 127.0.0.1
   connection: local
 
@@ -56,13 +55,13 @@ Example Playbook
         secret_engine_path: sonaruser  # Required Unique
         secret_path: sonar@123   # Required
 
-   - name: Check available secrets at latest version
+   - name: Check available secrets at latest version 
      import_role:
         name: vault_secret_management #Directory name containing this role
         tasks_from: check-secrets.yaml
      vars:
         vault_url: 127.0.0.1:8200   # Required
-        vault_token: "{{ ansible_env.VAULT_TOKEN }}"  # Required
+        vaultToken: "{{ ansible_env.VAULT_TOKEN }}"  # Required
         secret_engine_path: sonaruser  # Required Unique
 
    - name: Check available secrets for the selected version
@@ -71,7 +70,7 @@ Example Playbook
         tasks_from: check-certain-secret-version.yml
      vars:
         vault_url: 127.0.0.1:8200   # Required
-        vault_token: "{{ ansible_env.VAULT_TOKEN }}"  # Required
+        vaultToken: "{{ ansible_env.VAULT_TOKEN }}"  # Required
         secret_engine_path: sonaruser  # Required Unique
         version_number: 1
 
